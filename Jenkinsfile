@@ -8,14 +8,15 @@ pipeline {
         }
 
         stage('Code Quality Check via SonarQube') {
-            steps {
-                script {
-                def scannerHome = tool 'SonarQube';
-                    withSonarQubeEnv('SonarQube') {
-                    sh "/var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -Dsonar.projectKey=OWASP -Dsonar.sources=.}
+                steps {
+                    script {
+                            def scannerHome = tool 'SonarQube';
+                            withSonarQubeEnv('SonarQube') {
+                            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=OWASP -Dsonar.sources=."
+                        }
+                    }
                 }
             }
-        }
     }
     post {
         always {
@@ -23,4 +24,3 @@ pipeline {
         }
     }
 }
-
